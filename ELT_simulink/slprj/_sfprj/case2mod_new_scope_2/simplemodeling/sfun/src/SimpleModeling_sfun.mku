@@ -1,0 +1,81 @@
+#--------------------------- Tool Specifications -------------------------
+#
+# Modify the following macros to reflect the tools you wish to use for
+# compiling and linking your code.
+#
+CC = /Applications/MATLAB_R2013a.app/bin/mex
+LD = $(CC)
+ 
+MACHINE     = SimpleModeling
+TARGET      = sfun
+CHART_SRCS 	= c4_AKWZ2hTz1Kt3zen8afYfSH_SimpleModeling.c c4_abuxKJXBV9VPn5551cz1CE_SimpleModeling.c c4_eez4vufAy6ewiRKkW1dhDC_SimpleModeling.c c4_fc2gmjlSmNiG2t5ij3GmMF_SimpleModeling.c c5_6h4ldQsTNfmOBZYVt4DTQH_SimpleModeling.c c5_6x3QDARHeUi0bpdYm3tefC_SimpleModeling.c c5_RmGGBKt53gmT5pfDpwQ5E_SimpleModeling.c c5_XN8AP3RhI2jvNaP4qsMOjG_SimpleModeling.c c5_YsLWK1dB73EVPwRmtAVgi_SimpleModeling.c c5_qSYxDHUjMBCTudFuuUImZC_SimpleModeling.c c5_sj9EXIbH62BBAW6ior9pEE_SimpleModeling.c c6_SimpleModeling.c c8_SimpleModeling.c
+MACHINE_SRC	= SimpleModeling_sfun.c
+MACHINE_REG = 
+MAKEFILE    = SimpleModeling_sfun.mku
+MATLAB_ROOT	= /Applications/MATLAB_R2013a.app
+BUILDARGS   = 
+#------------------------------ Include/Lib Path ------------------------------
+ 
+USER_INCLUDES = 
+AUX_INCLUDES = 
+ML_INCLUDES     = -I/Applications/MATLAB_R2013a.app/extern/include
+SL_INCLUDES     = -I/Applications/MATLAB_R2013a.app/simulink/include
+SF_INCLUDES     = -I/Applications/MATLAB_R2013a.app/stateflow/c/mex/include -I/Applications/MATLAB_R2013a.app/stateflow/c/debugger/include
+
+THIRD_PARTY_INCLUDES = 
+
+INCLUDE_PATH = $(USER_INCLUDES) $(AUX_INCLUDES) $(MATLAB_INCLUDES) $(SF_INCLUDES) $(COMPILER_INCLUDES) $(THIRD_PARTY_INCLUDES)
+ 
+#----------------- Compiler and Linker Options --------------------------------
+ 
+# Optimization Options
+ 
+CC_OPTS = -O 
+CPP_REQ_DEFINES = -DMATLAB_MEX_FILE
+ 
+# Uncomment this line to move warning level to W4
+# cflags = $(cflags:W3=W4)
+CFLAGS = $(CC_OPTS) $(CPP_REQ_DEFINES) $(INCLUDE_PATH)
+ 
+LDFLAGS =  
+ 
+AUXLDFLAGS = 
+#----------------------------- Source Files -----------------------------------
+ 
+REQ_SRCS  = $(MACHINE_SRC) $(MACHINE_REG) $(CHART_SRCS)
+
+USER_ABS_OBJS =
+
+AUX_ABS_OBJS =
+REQ_OBJS = $(REQ_SRCS:.cpp=.o)
+REQ_OBJS2 = $(REQ_OBJS:.c=.o)
+OBJS = $(REQ_OBJS2) $(USER_ABS_OBJS) $(AUX_ABS_OBJS)
+OBJLIST_FILE = SimpleModeling_sfun.mol
+SFCLIB = /Applications/MATLAB_R2013a.app/stateflow/c/mex/lib/maci64/sfc_mex.a /Applications/MATLAB_R2013a.app/stateflow/c/debugger/lib/maci64/sfc_debug.a 
+AUX_LNK_OBJS = 
+USER_LIBS = 
+LINK_MACHINE_LIBS = 
+TMWLIB = -L/Applications/MATLAB_R2013a.app/bin/maci64 -lfixedpoint -L/Applications/MATLAB_R2013a.app/bin/maci64 -lut -L/Applications/MATLAB_R2013a.app/bin/maci64 -lemlrt -L/Applications/MATLAB_R2013a.app/bin/maci64 -lmwmathutil -L/Applications/MATLAB_R2013a.app/bin/maci64 -lmwblas -L/Applications/MATLAB_R2013a.app/bin/maci64 -lippmwipt 
+PARLIB = 
+MSGLIB =
+  MAPCSF = /Applications/MATLAB_R2013a.app/tools/maci64/mapcsf
+   # RUN_MAPCSF_ON_UNIX is defined only if MAPCSF exists on this platform.
+   ifneq ($(wildcard $(MAPCSF)),) # run MAPCSF if it exists on this platform
+      RUN_MAPCSF_ON_UNIX =  /Applications/MATLAB_R2013a.app/tools/maci64/mapcsf $@
+   endif
+THIRD_PARTY_LIBS = 
+ 
+#--------------------------------- Rules --------------------------------------
+ 
+DO_RANLIB = ranlib $(MACHINE)_$(TARGET).a
+ 
+$(MACHINE)_$(TARGET).a : $(MAKEFILE) $(OBJS) $(SFCLIB) $(AUX_LNK_OBJS) $(USER_LIBS) $(THIRD_PARTY_LIBS)
+	@echo ### Linking ...
+	ar ruv $(MACHINE)_$(TARGET).a $(OBJS)
+	$(DO_RANLIB)
+%.o :	%.c
+	$(CC) -c $(CFLAGS) $<
+
+%.o :	%.cpp
+	$(CC) -c $(CFLAGS) $<
+
